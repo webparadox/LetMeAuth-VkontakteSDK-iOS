@@ -13,12 +13,18 @@
 
 NSString *const LMAVkontakteSDKClientId = @"LMAVkontakteSDKClientId";
 NSString *const LMAVkontakteSDKScope = @"LMAVkontakteSDKScope";
+NSString *const LMAVkontakteSDKRevokeAccess = @"LMAVkontakteSDKRevokeAccess";
+NSString *const LMAVkontakteSDKForceOAuth = @"LMAVkontakteSDKForceOAuth";
+NSString *const LMAVkontakteSDKAuthorizeInApp = @"LMAVkontakteSDKAuthorizeInApp";
 
 
 @interface LMAVkontakteSDKProvider () <VKSdkDelegate>
 
 @property (copy, nonatomic) NSString *clientId;
 @property (copy, nonatomic) NSArray *scope;
+@property (strong, nonatomic) NSNumber *revokeAccess;
+@property (strong, nonatomic) NSNumber *forceOAuth;
+@property (strong, nonatomic) NSNumber *authorizeInApp;
 
 - (void)didAuthenticateWithData:(NSDictionary *)data;
 - (void)didFailWithError:(NSError *)error;
@@ -45,8 +51,15 @@ NSString *const LMAVkontakteSDKScope = @"LMAVkontakteSDKScope";
         return nil;
 	}
 
+    NSNumber *revokeAccess = [configuration objectForKey:LMAVkontakteSDKRevokeAccess];
+    NSNumber *forceOAuth = [configuration objectForKey:LMAVkontakteSDKForceOAuth];
+    NSNumber *authorizeInApp = [configuration objectForKey:LMAVkontakteSDKAuthorizeInApp];
+
     self.clientId = clientId;
     self.scope = [[[NSSet alloc] initWithArray:scope] allObjects];
+    self.revokeAccess = revokeAccess ?: @NO;
+    self.forceOAuth = forceOAuth ?: @NO;
+    self.authorizeInApp = authorizeInApp ?: @NO;
 
     return self;
 }
@@ -54,7 +67,7 @@ NSString *const LMAVkontakteSDKScope = @"LMAVkontakteSDKScope";
 - (void)start
 {
     [VKSdk initializeWithDelegate:self andAppId:self.clientId];
-	[VKSdk authorize:self.scope revokeAccess:YES forceOAuth:YES inApp:YES];
+	[VKSdk authorize:self.scope revokeAccess:[self.revokeAccess boolValue] forceOAuth:[self.forceOAuth boolValue] inApp:[self.authorizeInApp boolValue]];
 }
 
 - (void)cancel

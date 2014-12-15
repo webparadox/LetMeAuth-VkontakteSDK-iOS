@@ -15,6 +15,12 @@
 extern NSString *const LMAVkontakteSDKClientId;
 // NSArray of NSString
 extern NSString *const LMAVkontakteSDKScope;
+// NSNumber
+extern NSString *const LMAVkontakteSDKRevokeAccess;
+// NSNumber
+extern NSString *const LMAVkontakteSDKForceOAuth;
+// NSNumber
+extern NSString *const LMAVkontakteSDKAuthorizeInApp;
 
 
 /*
