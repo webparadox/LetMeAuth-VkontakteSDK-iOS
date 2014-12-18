@@ -36,13 +36,13 @@
     NSString *clientId = [configuration objectForKey:LMAVkontakteSDKClientId];
     NSArray *scope = [configuration objectForKey:LMAVkontakteSDKScope];
 
-	NSParameterAssert(clientId != nil);
-	NSParameterAssert(scope != nil && [scope count] != 0);
+    NSParameterAssert(clientId != nil);
+    NSParameterAssert(scope != nil && [scope count] != 0);
 
-	self = [super init];
-	if (!self) {
+    self = [super init];
+    if (!self) {
         return nil;
-	}
+    }
 
     NSNumber *revokeAccess = [configuration objectForKey:LMAVkontakteSDKRevokeAccess];
     NSNumber *forceOAuth = [configuration objectForKey:LMAVkontakteSDKForceOAuth];
@@ -60,7 +60,7 @@
 - (void)start
 {
     [VKSdk initializeWithDelegate:self andAppId:self.clientId];
-	[VKSdk authorize:self.scope revokeAccess:[self.revokeAccess boolValue] forceOAuth:[self.forceOAuth boolValue] inApp:[self.authorizeInApp boolValue]];
+    [VKSdk authorize:self.scope revokeAccess:[self.revokeAccess boolValue] forceOAuth:[self.forceOAuth boolValue] inApp:[self.authorizeInApp boolValue]];
 }
 
 - (void)cancel
@@ -70,7 +70,7 @@
 
 - (BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-	return [VKSdk processOpenURL:url fromApplication:sourceApplication];
+    return [VKSdk processOpenURL:url fromApplication:sourceApplication];
 }
 
 - (void)handleDidBecomeActive
@@ -108,26 +108,26 @@
 
 - (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError;
 {
-	UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
 
-	VKCaptchaViewController *viewController = [VKCaptchaViewController captchaControllerWithError:captchaError];
-	[viewController presentIn:rootViewController];
+    VKCaptchaViewController *viewController = [VKCaptchaViewController captchaControllerWithError:captchaError];
+    [viewController presentIn:rootViewController];
 }
 
 - (void)vkSdkUserDeniedAccess:(VKError *)authorizationError
 {
-	NSError *error = authorizationError.httpError;
-	if (error) {
+    NSError *error = authorizationError.httpError;
+    if (error) {
         [self didFailWithError:error];
-	} else {
+    } else {
         [self didCancel];
-	}
+    }
 }
 
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller
 {
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-	[rootViewController presentViewController:controller animated:YES completion:nil];
+    [rootViewController presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)vkSdkTokenHasExpired:(VKAccessToken *)expiredToken
