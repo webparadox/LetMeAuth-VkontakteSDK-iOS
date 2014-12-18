@@ -138,12 +138,28 @@
 {
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithCapacity:8];
 
-    [data setValue:newToken.accessToken forKey:@"access_token"];
-    [data setValue:newToken.expiresIn forKey:@"expires_in"];
-    [data setValue:newToken.userId forKey:@"user_id"];
+    NSDate *issuedAt;
+    if (newToken.created) {
+        issuedAt = [[NSDate alloc] initWithTimeIntervalSince1970:newToken.created];
+    }
+
+    NSNumber *expiresIn;
+    if (newToken.expiresIn) {
+        expiresIn = [[NSNumber alloc] initWithLongLong:[newToken.expiresIn longLongValue]];
+    }
+
+    NSDate *expiresAt;
+    if (issuedAt && expiresIn) {
+        expiresAt = [issuedAt dateByAddingTimeInterval:[expiresIn unsignedIntegerValue]];
+    }
+
+    [data setValue:newToken.accessToken forKey:LMAOAuth2AccessToken];
+    [data setValue:expiresIn forKey:LMAOAuth2ExpiresIn];
+    [data setValue:newToken.permissions forKey:LMAOAuth2Scope];
+    [data setValue:issuedAt forKey:LMAIssuedAt];
+    [data setValue:expiresAt forKey:LMAExpiresAt];
+    [data setValue:newToken.userId forKey:LMAUserId];
     [data setValue:newToken.email forKey:@"email"];
-    [data setValue:@(newToken.created) forKey:@"created"];
-    [data setValue:newToken.permissions forKey:@"scope"];
     [data setValue:newToken.secret forKey:@"secret"];
     [data setValue:@(newToken.httpsRequired) forKey:@"https_required"];
 

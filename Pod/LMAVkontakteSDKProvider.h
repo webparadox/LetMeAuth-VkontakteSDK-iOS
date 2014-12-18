@@ -15,12 +15,13 @@
 /*
  Return
 
- @"access_token" => NSString. String token for use in request parameters
- @"expires_in" => NSString. Time when token expires
- @"user_id" => NSString. Current user id for this token
+ LMAOAuth2AccessToken => NSString. String token for use in request parameters
+ LMAOAuth2ExpiresIn => NSNumber. Token lifetime
+ LMAOAuth2Scope => NSArray of NSString. Permissions assosiated with token
+ LMAIssuedAt => NSDate. Indicates time of token creation
+ LMAExpiresAt => NSDate. Time when token expires
+ LMAUserId => NSString. Current user id for this token
  @"email" => NSString. User email (if passed)
- @"created" => NSNumber(NSTimeInterval). Indicates time of token creation
- @"scope" => NSArray of NSString. Permissions assosiated with token
  @"secret" => NSString. User secret to sign requests (if nohttps used)
  @"https_required" => NSNumber(BOOL). If user sets "Always use HTTPS" setting in his profile, it will be true
  */
