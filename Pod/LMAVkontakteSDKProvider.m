@@ -73,9 +73,10 @@
     return [VKSdk processOpenURL:url fromApplication:sourceApplication];
 }
 
-- (void)handleDidBecomeActive
+- (BOOL)handleDidBecomeActive
 {
     [self didCancel];
+    return YES;
 }
 
 #pragma mark Private methods
