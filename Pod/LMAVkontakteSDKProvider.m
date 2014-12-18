@@ -11,13 +11,6 @@
 #import <VK-ios-sdk/VKSdk.h>
 
 
-NSString *const LMAVkontakteSDKClientId = @"LMAVkontakteSDKClientId";
-NSString *const LMAVkontakteSDKScope = @"LMAVkontakteSDKScope";
-NSString *const LMAVkontakteSDKRevokeAccess = @"LMAVkontakteSDKRevokeAccess";
-NSString *const LMAVkontakteSDKForceOAuth = @"LMAVkontakteSDKForceOAuth";
-NSString *const LMAVkontakteSDKAuthorizeInApp = @"LMAVkontakteSDKAuthorizeInApp";
-
-
 @interface LMAVkontakteSDKProvider () <VKSdkDelegate>
 
 @property (copy, nonatomic) NSString *clientId;
