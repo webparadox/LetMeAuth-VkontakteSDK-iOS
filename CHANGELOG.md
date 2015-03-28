@@ -1,3 +1,7 @@
+= 2.0.1 (2015.03.29)
+
+ * Use '~> x.y' instead of '~> x.y.z' in VK-ios-sdk dependency version
+
 = 2.0.0 (2014.12.18)
 
  * Extract constants
